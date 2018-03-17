@@ -51,7 +51,7 @@ e.getAuditPreSaveHook = (collectionName)=> {
         if(req){
             let data = {};
             data.user = req.user ? req.user.username : null;
-            data.txnId = req.get('TxnId');
+            data.txnId = req.headers ? req.get('TxnId') : null;
             data.timeStamp = new Date();
             data.data = {};
             if(this._id){
@@ -85,7 +85,8 @@ e.getAuditPostSaveHook = (collectionName)=>{
             auditData.data.new = {};
             auditData.data.old = {};
             getDiff(oldData, newData, auditData.data.old, auditData.data.new);
-            mongoose.connection.db.collection(collectionName).insert(auditData); 
+            if(!_.isEqual(auditData.data.old, auditData.data.new))
+                mongoose.connection.db.collection(collectionName).insert(auditData); 
         }
     };
 };
@@ -95,7 +96,7 @@ e.getAuditPreRemoveHook = ()=>{
         if(req){
             let data = {};
             data.user = req.user ? req.user.username : null;
-            data.txnId = req.get('TxnId');
+            data.txnId = req.headers ? req.get('TxnId') : null;
             data.timeStamp = new Date();
             data.data = {};
             data.data.new = null;
