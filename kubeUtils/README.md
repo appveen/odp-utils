@@ -1,5 +1,4 @@
-# Kubernetes API and Docker Client
-
+# KubeUtils: Kubernetes API and Docker Client
 
 # Kubernetes APIs
 
