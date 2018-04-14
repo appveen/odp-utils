@@ -1,5 +1,5 @@
 let e = {};
 e.auditTrail = require('./auditTrail');
-e.kubeutil = require("./kubeutil/app");
+e.kubeutil = require("./kubeUtils/app");
 
 module.exports = e;

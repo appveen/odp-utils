@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/capiotsoftware/unagiutils#readme",
   "dependencies": {
+    "lodash": "^4.17.4",
     "log4js": "^2.4.1",
-	"mongoose": "^4.9.9",
-	"lodash": "^4.17.4"
+    "mongoose": "^4.9.9",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2"
   }
 }
