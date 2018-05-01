@@ -79,7 +79,7 @@ e.getAuditPostSaveHook = (collectionName)=>{
             let newData = doc.toJSON();
             delete doc._auditData.data;
             let auditData = doc._auditData;
-            auditData.deleted = false;
+            auditData._deleted = false;
             auditData.data = {};
             auditData.data._id = doc._id;
             auditData.data.new = {};
@@ -102,6 +102,7 @@ e.getAuditPreRemoveHook = ()=>{
             data.data.new = null;
             data.data.old = this.toJSON();
             data.data._id = this._id;
+            data._deleted = false;
             this._auditData = data;
         }
         next();
