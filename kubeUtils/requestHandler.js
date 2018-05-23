@@ -12,9 +12,9 @@ const URL = "https://" + HOST + ":" + PORT;
 const KEY = process.env.MDM_KEY;
 const CRT = process.env.MDM_CRT;
 
-const mdm_key = "";
+var mdm_key = "";
 if(KEY) mdm_key = fs.readFileSync(KEY);
-const mdm_crt = "";
+var mdm_crt = "";
 if(CRT) mdm_crt = fs.readFileSync(CRT);
 
 e.get = (_api) => {
