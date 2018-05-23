@@ -50,7 +50,7 @@ e.getAuditPreSaveHook = (collectionName)=> {
     return function(next, req){
         if(req){
             let data = {};
-            data.user = req.user ? req.user.username : null;
+            data.user = req.headers ? req.get("user") : null;
             data.txnId = req.headers ? req.get('TxnId') : null;
             data.timeStamp = new Date();
             data.data = {};
@@ -79,7 +79,7 @@ e.getAuditPostSaveHook = (collectionName)=>{
             let newData = doc.toJSON();
             delete doc._auditData.data;
             let auditData = doc._auditData;
-            auditData.deleted = false;
+            auditData._deleted = false;
             auditData.data = {};
             auditData.data._id = doc._id;
             auditData.data.new = {};
@@ -95,13 +95,14 @@ e.getAuditPreRemoveHook = ()=>{
     return function(next, req){
         if(req){
             let data = {};
-            data.user = req.user ? req.user.username : null;
+            data.user = req.headers ? req.get("user") : null;
             data.txnId = req.headers ? req.get('TxnId') : null;
             data.timeStamp = new Date();
             data.data = {};
             data.data.new = null;
             data.data.old = this.toJSON();
             data.data._id = this._id;
+            data._deleted = false;
             this._auditData = data;
         }
         next();
