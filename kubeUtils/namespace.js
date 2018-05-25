@@ -19,6 +19,7 @@ e.getAllNamespaces = () => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -29,6 +30,7 @@ e.getNamespace = (_name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -40,6 +42,7 @@ e.createNamespace = (_name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -51,6 +54,7 @@ e.deleteNamespace = (_name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 

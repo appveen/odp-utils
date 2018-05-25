@@ -20,6 +20,7 @@ e.getAllDeployments = () => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -37,6 +38,7 @@ e.getAllDeploymentsForNamespace = (_namespace) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -47,6 +49,7 @@ e.getDeployment = (_namespace, _name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -92,6 +95,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -116,6 +120,7 @@ e.updateDeployment = (_namespace, _name, _image) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -127,6 +132,7 @@ e.deleteDeployment = (_namespace, _name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 

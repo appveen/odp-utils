@@ -20,6 +20,7 @@ e.getAllServices = () => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -37,6 +38,7 @@ e.getAllServicesForNamespace = (_namespace) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -47,6 +49,7 @@ e.getService = (_namespace, _name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -76,6 +79,7 @@ e.createService = (_namespace, _name, _port) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -97,6 +101,7 @@ e.updateService = (_namespace, _name, _port) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
@@ -108,6 +113,7 @@ e.deleteService = (_namespace, _name) => {
 	}, _e => {
 		console.log("ERROR");
 		console.log(_e.message);
+		return _e;
 	});
 }
 
