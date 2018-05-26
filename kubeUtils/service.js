@@ -56,7 +56,7 @@ e.getService = (_namespace, _name) => {
 e.createService = (_namespace, _name, _port) => {
 	var data = {
 		"metadata": {
-			"name": "x",
+			"name": _name,
 				"namespace": _namespace
 			},
 			"spec": {
