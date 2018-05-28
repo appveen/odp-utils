@@ -17,8 +17,6 @@ e.getAllNamespaces = () => {
 		}));
 		return res;
 	}, _e => {
-		console.log("ERROR");
-		console.log(_e.message);
 		return _e;
 	});
 }
@@ -28,8 +26,6 @@ e.getNamespace = (_name) => {
 	.then(_d => {
 		return _d
 	}, _e => {
-		console.log("ERROR");
-		console.log(_e.message);
 		return _e;
 	});
 }
@@ -40,8 +36,6 @@ e.createNamespace = (_name) => {
 	.then(_d => {
 		return data;
 	}, _e => {
-		console.log("ERROR");
-		console.log(_e.message);
 		return _e;
 	});
 }
@@ -52,8 +46,6 @@ e.deleteNamespace = (_name) => {
 	.then(_d => {
 		return data;
 	}, _e => {
-		console.log("ERROR");
-		console.log(_e.message);
 		return _e;
 	});
 }
