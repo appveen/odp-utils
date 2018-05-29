@@ -4,19 +4,6 @@ const req = require("./requestHandler");
 
 const _baseURL = "/api/v1/namespaces";
 
-
-var log4js = require("log4js");
-log4js.configure({
-    levels: {
-      OFF: { value: Number.MAX_VALUE-1, colour: 'white' },
-      AUDIT: { value: Number.MAX_VALUE, colour: 'yellow' }
-    },
-    appenders: { out: { type: 'stdout' } },
-    categories: { default: { appenders: ['out'], level: 'AUDIT' } }
-  });
-log4js.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL: 'info';
-
-
 var e = {};
 
 e.getAllNamespaces = () => {
@@ -30,7 +17,8 @@ e.getAllNamespaces = () => {
 		}));
 		return res;
 	}, _e => {
-		return _e;
+		console.log("ERROR");
+		console.log(_e.message);
 	});
 }
 
@@ -39,7 +27,8 @@ e.getNamespace = (_name) => {
 	.then(_d => {
 		return _d
 	}, _e => {
-		return _e;
+		console.log("ERROR");
+		console.log(_e.message);
 	});
 }
 
@@ -49,7 +38,8 @@ e.createNamespace = (_name) => {
 	.then(_d => {
 		return data;
 	}, _e => {
-		return _e;
+		console.log("ERROR");
+		console.log(_e.message);
 	});
 }
 
@@ -59,7 +49,8 @@ e.deleteNamespace = (_name) => {
 	.then(_d => {
 		return data;
 	}, _e => {
-		return _e;
+		console.log("ERROR");
+		console.log(_e.message);
 	});
 }
 
