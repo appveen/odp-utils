@@ -48,7 +48,7 @@ e.getDeployment = (_namespace, _name) => {
 }
 
 e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
-	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port, _envVars);
+	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port);
 	var data = {
 		"metadata": {
 			"name": _name,
@@ -92,7 +92,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 	});
 }
 
-e.updateDeployment = (_namespace, _name, _image) => {
+e.updateDeployment = (_namespace, _name, _image, _port, _envVars) => {
 	console.log("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
   		"spec": {
@@ -101,7 +101,13 @@ e.updateDeployment = (_namespace, _name, _image) => {
 		        "containers": [
 		          {
 		            "image": _image,
-		            "name": _name
+		            "name": _name,
+		            "ports": [
+						{
+							"containerPort": _port
+						}
+					],
+		            "env": _envVars
 		          }
 		        ]
 		      }
