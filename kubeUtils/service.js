@@ -4,6 +4,8 @@ const req = require("./requestHandler");
 
 const _baseURL = "/api/v1";
 
+const logger = global.logger;
+
 var e = {};
 
 e.getAllServices = () => {
@@ -48,12 +50,13 @@ e.getService = (_namespace, _name) => {
 }
 
 e.createService = (_namespace, _name, _port) => {
+	logger.debug("Creating a new service :: ", _namespace, _name, _port);
 	var data = {
 		"metadata": {
 			"name": _name,
-				"namespace": _namespace
-			},
-			"spec": {
+			"namespace": _namespace
+		},
+		"spec": {
 			"type": "ClusterIP",
 			"selector": {
 			 	"app": _name
@@ -67,6 +70,7 @@ e.createService = (_namespace, _name, _port) => {
 			]
 		}
 	};
+	logger.debug(data);
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/services", data)
 	.then(_d => {
 		return data;
@@ -76,6 +80,7 @@ e.createService = (_namespace, _name, _port) => {
 }
 
 e.updateService = (_namespace, _name, _port) => {
+	logger.debug("Updating the service :: ", _namespace, _name, _port);
 	var data = {
   		"spec": {
     	"ports": [
@@ -96,6 +101,7 @@ e.updateService = (_namespace, _name, _port) => {
 }
 
 e.deleteService = (_namespace, _name) => {
+	logger.debug("Deleting service ::", _namespace, _name);
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/services/" + _name, data)
 	.then(_d => {

@@ -4,6 +4,8 @@ const req = require("./requestHandler");
 
 const _baseURL = "/apis/apps/v1";
 
+const logger = global.logger;
+
 var e = {};
 
 e.getAllDeployments = () => {
@@ -48,6 +50,7 @@ e.getDeployment = (_namespace, _name) => {
 }
 
 e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
+	logger.debug("Creating a new deployment :: ", _namespace, _name, _image, _port, _envVars);
 	var data = {
 		"metadata": {
 			"name": _name,
@@ -92,6 +95,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 }
 
 e.updateDeployment = (_namespace, _name, _image) => {
+	logger.debug("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
   		"spec": {
 		    "template": {
@@ -115,6 +119,7 @@ e.updateDeployment = (_namespace, _name, _image) => {
 }
 
 e.deleteDeployment = (_namespace, _name) => {
+	logger.debug("Deleting the deployment :: ", _namespace, _name);
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 	.then(_d => {
