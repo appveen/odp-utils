@@ -11,7 +11,7 @@ log4js.configure({
   });
 log4js.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL: 'info';
 
-const logger = global.logger;
+global.logger = logger;
 
 e.auditTrail = require('./auditTrail');
 e.kubeutil = require("./kubeUtils/app");
