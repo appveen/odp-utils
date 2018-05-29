@@ -4,7 +4,16 @@ const req = require("./requestHandler");
 
 const _baseURL = "/apis/apps/v1";
 
-const logger = global.logger;
+var log4js = require("log4js");
+log4js.configure({
+    levels: {
+      OFF: { value: Number.MAX_VALUE-1, colour: 'white' },
+      AUDIT: { value: Number.MAX_VALUE, colour: 'yellow' }
+    },
+    appenders: { out: { type: 'stdout' } },
+    categories: { default: { appenders: ['out'], level: 'AUDIT' } }
+  });
+log4js.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL: 'info';
 
 var e = {};
 
@@ -50,7 +59,7 @@ e.getDeployment = (_namespace, _name) => {
 }
 
 e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
-	logger.debug("Creating a new deployment :: ", _namespace, _name, _image, _port, _envVars);
+	log4js.debug("Creating a new deployment :: ", _namespace, _name, _image, _port, _envVars);
 	var data = {
 		"metadata": {
 			"name": _name,
@@ -95,7 +104,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 }
 
 e.updateDeployment = (_namespace, _name, _image) => {
-	logger.debug("Updating the deployment :: ", _namespace, _name, _image);
+	log4js.debug("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
   		"spec": {
 		    "template": {
@@ -119,7 +128,7 @@ e.updateDeployment = (_namespace, _name, _image) => {
 }
 
 e.deleteDeployment = (_namespace, _name) => {
-	logger.debug("Deleting the deployment :: ", _namespace, _name);
+	log4js.debug("Deleting the deployment :: ", _namespace, _name);
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 	.then(_d => {
