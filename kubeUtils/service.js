@@ -68,7 +68,6 @@ e.createService = (_namespace, _name, _port) => {
 			]
 		}
 	};
-	console.log(data);
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/services", data)
 	.then(_d => {
 		return data;

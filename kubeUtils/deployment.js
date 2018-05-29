@@ -84,7 +84,6 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 			}
 		}
 	};
-	console.log(data);
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 	.then(_d => {
 		return data;
