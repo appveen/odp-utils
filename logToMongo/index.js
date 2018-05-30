@@ -20,7 +20,6 @@ function logToMongo(name) {
                 reqHeaders: headers,
                 reqBody: req.body,
                 timestamp: start,
-                resHeaders: res.getHeaders(),
                 resStatusCode: res.statusCode,
                 source: req.connection.remoteAddress,
                 completionTime: diff,
