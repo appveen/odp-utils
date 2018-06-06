@@ -9,13 +9,10 @@ const HOST = process.env.KUBERNETES_SERVICE_HOST;
 const PORT = process.env.KUBERNETES_SERVICE_PORT;
 const URL = "https://" + HOST + ":" + PORT;
 
-const KEY = process.env.MDM_KEY;
-const CRT = process.env.MDM_CRT;
+const TOKEN = process.env.ODP_TOKEN;
 
-var mdm_key = "";
-if(KEY) mdm_key = fs.readFileSync(KEY);
-var mdm_crt = "";
-if(CRT) mdm_crt = fs.readFileSync(CRT);
+var odp_token = "";
+if(TOKEN) odp_token = fs.readFileSync(TOKEN);
 
 e.get = (_api) => {
 	var options = {
@@ -23,10 +20,9 @@ e.get = (_api) => {
 		uri: URL + _api,
 		strictSSL: false,
 		json: true,
-		agentOptions: {
-			cert: mdm_crt,
-	        key: mdm_key
-	    }
+		headers:{
+			"Authorization: Bearer " + token
+		}
 	}
 	return req(options)
 }
@@ -36,10 +32,9 @@ e.post = (_api, _body) => {
 		method: "POST",
 		uri: URL + _api,
 		strictSSL: false,
-		agentOptions: {
-			cert: mdm_crt,
-	        key: mdm_key
-	    },
+		headers:{
+			"Authorization: Bearer " + token
+		},
 	    json: true,
 	    body: _body
 	}
@@ -51,13 +46,10 @@ e.patch = (_api, _body) => {
 		method: "PATCH",
 		uri: URL + _api,
 		strictSSL: false,
-		agentOptions: {
-			cert: mdm_crt,
-	        key: mdm_key
-	    },
-	    headers: {
+		headers:{
+			"Authorization: Bearer " + token
 	    	"Content-Type": "application/merge-patch+json"
-	    },
+		},
 	    json: true,
 	    body: _body
 	}
@@ -69,10 +61,9 @@ e.delete = (_api, _body) => {
 		method: "DELETE",
 		uri: URL + _api,
 		strictSSL: false,
-		agentOptions: {
-			cert: mdm_crt,
-	        key: mdm_key
-	    },
+		headers:{
+			"Authorization: Bearer " + token
+		},
 	    json: true,
 	    body: _body
 	}
