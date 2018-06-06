@@ -21,7 +21,7 @@ e.get = (_api) => {
 		strictSSL: false,
 		json: true,
 		headers:{
-			"Authorization: Bearer " + odp_token
+			"Authorization": "Bearer " + odp_token
 		}
 	}
 	return req(options)
@@ -33,7 +33,7 @@ e.post = (_api, _body) => {
 		uri: URL + _api,
 		strictSSL: false,
 		headers:{
-			"Authorization: Bearer " + odp_token
+			"Authorization": "Bearer " + odp_token
 		},
 	    json: true,
 	    body: _body
@@ -47,7 +47,7 @@ e.patch = (_api, _body) => {
 		uri: URL + _api,
 		strictSSL: false,
 		headers:{
-			"Authorization: Bearer " + odp_token
+			"Authorization": "Bearer " + odp_token
 	    	"Content-Type": "application/merge-patch+json"
 		},
 	    json: true,
@@ -62,7 +62,7 @@ e.delete = (_api, _body) => {
 		uri: URL + _api,
 		strictSSL: false,
 		headers:{
-			"Authorization: Bearer " + odp_token
+			"Authorization": "Bearer " + odp_token
 		},
 	    json: true,
 	    body: _body
