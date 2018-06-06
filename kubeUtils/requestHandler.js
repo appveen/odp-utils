@@ -47,7 +47,7 @@ e.patch = (_api, _body) => {
 		uri: URL + _api,
 		strictSSL: false,
 		headers:{
-			"Authorization": "Bearer " + odp_token
+			"Authorization": "Bearer " + odp_token,
 	    	"Content-Type": "application/merge-patch+json"
 		},
 	    json: true,
