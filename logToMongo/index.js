@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const pathNotToLog = ["/audit", "/audit/count", "/webHookStatus", "/webHookStatus/count", "/logs", "/logs/count"];
 function logToMongo(name) {
-    let mongoDB = mongoose.connection.db.collection('logs');
     return function (req, res, next) {
+        let mongoDB = mongoose.connection.db.collection('logs');
         let start = new Date();
         res.on('finish', function () {
             let end = new Date();
