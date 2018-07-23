@@ -87,6 +87,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 
 	if (process.env.DOCKER_SECRET) {
 		let secretList = process.env.DOCKER_SECRET.split(",");
+		logger.info("Secret used " + secretList);
 		data.spec.template.spec.imagePullSecrets = secretList.map(_s => { return { name: _s } });
 	}
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
