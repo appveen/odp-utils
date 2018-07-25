@@ -2,7 +2,7 @@ let e = {};
 
 const req = require("./requestHandler");
 
-const _baseURL = "/apis/apps/v1";
+const _baseURL = "/api/v1";
 
 function base64_encode(data) {
     return new Buffer(data).toString('base64');
