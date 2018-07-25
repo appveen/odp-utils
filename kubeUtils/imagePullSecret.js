@@ -13,7 +13,6 @@ e.createSecret = (ns) => {
     let dockerConfig = {
         "auths": { [process.env.DOCKER_REG]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
     }
-    console.log("dockerConfig",JSON.stringify(dockerConfig))
     let base64En = base64_encode(JSON.stringify(dockerConfig));
     var data = {
         "kind": "Secret",
@@ -27,7 +26,6 @@ e.createSecret = (ns) => {
         },
         "type": "kubernetes.io/dockerconfigjson"
     };
-    console.log("data "+JSON.stringify(data));
     return req.post(_baseURL + "/namespaces/" + ns + "/secrets", data)
         .then(_d => {
             return data;
