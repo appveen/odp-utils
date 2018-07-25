@@ -12,9 +12,10 @@ function base64_encode(data) {
 e.createSecret = (ns) => {
     console.log("Creating a new secret :: in ", ns);
     let dockerConfig = {
-        "auths": { [process.env.DOCKER_HOST]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
+        "auths": { [process.env.DOCKER_REG]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
     }
-    let base64En = base64_encode(dockerConfig);
+    console.log("dockerConfig",JSON.stringify(dockerConfig))
+    let base64En = base64_encode([dockerConfig]);
     var data = {
         "kind": "Secret",
         "apiVersion": "v1",
@@ -27,7 +28,7 @@ e.createSecret = (ns) => {
         },
         "type": "kubernetes.io/dockerconfigjson"
     };
-    logger.info(JSON.stringify(data));
+    logger.info("data "+JSON.stringify(data));
     return req.post(_baseURL + "/namespaces/" + ns + "/secrets", data)
         .then(_d => {
             return data;
