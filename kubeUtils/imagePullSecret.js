@@ -5,17 +5,16 @@ const req = require("./requestHandler");
 const _baseURL = "/apis/apps/v1";
 var fs = require('fs');
 
-function base64_encode(file) {
-    var bitmap = fs.readFileSync(file);
-    return new Buffer(bitmap).toString('base64');
+function base64_encode(data) {
+    return new Buffer(data).toString('base64');
 }
 
 e.createSecret = (ns) => {
     console.log("Creating a new secret :: in ", ns);
-    let file = process.env.DOCKER_CONFIG;
-    logger.info("++++++++++"+file);
-    let base64En = base64_encode(file);
-    logger.info(base64En);
+    let data = {
+        "auths": { [process.env.DOCKER_HOST]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
+    }
+    let base64En = base64_encode(data);
     var data = {
         "kind": "Secret",
         "apiVersion": "v1",
