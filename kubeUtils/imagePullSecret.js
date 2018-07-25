@@ -3,7 +3,6 @@ let e = {};
 const req = require("./requestHandler");
 
 const _baseURL = "/apis/apps/v1";
-var fs = require('fs');
 
 function base64_encode(data) {
     return new Buffer(data).toString('base64');
@@ -28,12 +27,13 @@ e.createSecret = (ns) => {
         },
         "type": "kubernetes.io/dockerconfigjson"
     };
-    logger.info("data "+JSON.stringify(data));
+    console.log("data "+JSON.stringify(data));
     return req.post(_baseURL + "/namespaces/" + ns + "/secrets", data)
         .then(_d => {
             return data;
         }, _e => {
-            return _e;
+            console.log("ERR::",_e);
+            return new Error(_e);
         });
 }
 
