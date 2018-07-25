@@ -11,10 +11,10 @@ function base64_encode(data) {
 
 e.createSecret = (ns) => {
     console.log("Creating a new secret :: in ", ns);
-    let data = {
+    let dockerConfig = {
         "auths": { [process.env.DOCKER_HOST]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
     }
-    let base64En = base64_encode(data);
+    let base64En = base64_encode(dockerConfig);
     var data = {
         "kind": "Secret",
         "apiVersion": "v1",
