@@ -153,7 +153,7 @@ e.scaleDeployment = (ns, name, scale) => {
 	};
 	return req.put(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
 		.then(_d => {
-			return data;
+			return _d;
 		}, _e => {
 			return _e;
 		})
@@ -162,7 +162,7 @@ e.scaleDeployment = (ns, name, scale) => {
 e.getDeploymentScale = (ns, name) => {
 	return req.get(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
 		.then(_d => {
-			return data;
+			return _d;
 		}, _e => {
 			return _e;
 		})
