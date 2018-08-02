@@ -139,4 +139,13 @@ e.deleteDeployment = (_namespace, _name) => {
 		});
 }
 
+e.scaleDeployment = (ns, name, scale) => {
+	let payload = [{ "op": "replace", "path": "/spec/replicas", "value": scale }];
+	return req.patch(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
+		.then(_d => {
+			return data;
+		}, _e => {
+			return _e;
+		})
+}
 module.exports = e;
