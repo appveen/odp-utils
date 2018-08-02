@@ -70,4 +70,18 @@ e.delete = (_api, _body) => {
 	return req(options)
 }
 
+e.put = (_api, _body) => {
+	var options = {
+		method: "PUT",
+		uri: URL + _api,
+		strictSSL: false,
+		headers:{
+			"Authorization": "Bearer " + odp_token
+		},
+	    json: true,
+	    body: _body
+	}
+	return req(options)
+}
+
 module.exports = e;

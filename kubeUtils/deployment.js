@@ -158,4 +158,14 @@ e.scaleDeployment = (ns, name, scale) => {
 			return _e;
 		})
 }
+
+e.getDeploymentScale = (ns, name) => {
+	return req.get(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
+		.then(_d => {
+			return data;
+		}, _e => {
+			return _e;
+		})
+}
+
 module.exports = e;
