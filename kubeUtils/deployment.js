@@ -140,8 +140,18 @@ e.deleteDeployment = (_namespace, _name) => {
 }
 
 e.scaleDeployment = (ns, name, scale) => {
-	let payload = [{ "op": "replace", "path": "/spec/replicas", "value": scale }];
-	return req.patch(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
+	let payload = {
+		"kind": "Scale",
+		"apiVersion": "autoscaling/v1",
+		"metadata": {
+			"name": name,
+			"namespace": ns
+		},
+		"spec": {
+			"replicas": scale
+		}
+	};
+	return req.put(_baseURL + "/namespaces/" + ns + "/deployments/" + name + "/scale", payload)
 		.then(_d => {
 			return data;
 		}, _e => {
