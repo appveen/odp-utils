@@ -11,7 +11,7 @@ function base64_encode(data) {
 e.createSecret = (ns) => {
     console.log("Creating a new secret :: in ", ns);
     let dockerConfig = {
-        "auths": { [process.env.DOCKER_REG]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
+        "auths": { [process.env.DOCKER_REGISTRY_SERVER]: { username: process.env.DOCKER_USER, password: process.env.DOCKER_PASSWORD, email: process.env.DOCKER_EMAIL, auth:  base64_encode(`${process.env.DOCKER_USER}:${process.env.DOCKER_PASSWORD}`)} }
     }
     let base64En = base64_encode(JSON.stringify(dockerConfig));
     var data = {
