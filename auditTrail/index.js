@@ -52,7 +52,7 @@ e.getAuditPreSaveHook = (collectionName)=> {
             let data = {};
             data.user = req.headers ? req.get("user") : null;
             data.txnId = req.headers ? req.get('TxnId') : null;
-            data.timeStamp = new Date();
+            data.timestamp = new Date();
             data.data = {};
             if(this._id){
                 mongoose.connection.db.collection(collectionName).findOne({_id: this._id})
@@ -99,7 +99,7 @@ e.getAuditPreRemoveHook = ()=>{
             let data = {};
             data.user = req.headers ? req.get("user") : null;
             data.txnId = req.headers ? req.get('TxnId') : null;
-            data.timeStamp = new Date();
+            data.timestamp = new Date();
             data.data = {};
             data._createdAt = new Date();
             data._lastUpdated = new Date();
