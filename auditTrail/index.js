@@ -84,6 +84,8 @@ e.getAuditPostSaveHook = (collectionName)=>{
             auditData.data._id = doc._id;
             auditData.data.new = {};
             auditData.data.old = {};
+            auditData._createdAt = new Date();
+            auditData._lastUpdated = new Date();
             getDiff(oldData, newData, auditData.data.old, auditData.data.new);
             if(!_.isEqual(auditData.data.old, auditData.data.new))
                 mongoose.connection.db.collection(collectionName).insert(auditData); 
@@ -99,6 +101,8 @@ e.getAuditPreRemoveHook = ()=>{
             data.txnId = req.headers ? req.get('TxnId') : null;
             data.timeStamp = new Date();
             data.data = {};
+            data._createdAt = new Date();
+            data._lastUpdated = new Date();
             data.data.new = null;
             data.data.old = this.toJSON();
             data.data._id = this._id;
