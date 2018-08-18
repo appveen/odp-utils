@@ -47,7 +47,7 @@ e.getDeployment = (_namespace, _name) => {
 		});
 }
 
-e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
+e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port);
 	var data = {
 		"metadata": {
@@ -87,6 +87,8 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 	if (process.env.DOCKER_USER && process.env.DOCKER_PASSWORD && process.env.DOCKER_REGISTRY_SERVER && process.env.DOCKER_EMAIL) {
 		data.spec.template.spec.imagePullSecrets = [{name: 'regsecret'}];
 	}
+	if(_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
+	if(_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
 			return data;
@@ -95,7 +97,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars) => {
 		});
 }
 
-e.updateDeployment = (_namespace, _name, _image, _port, _envVars) => {
+e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 	console.log("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
 		"spec": {
@@ -120,6 +122,8 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars) => {
 	if (process.env.DOCKER_USER && process.env.DOCKER_PASSWORD && process.env.DOCKER_REGISTRY_SERVER && process.env.DOCKER_EMAIL) {
 		data.spec.template.spec.imagePullSecrets = [{name: 'regsecret'}];
 	}
+	if(_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
+	if(_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
 			return data;
