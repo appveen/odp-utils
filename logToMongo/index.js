@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const pathNotToLog = ["/audit", "/audit/count", "/webHookStatus", "/webHookStatus/count", "/logs", "/logs/count"];
+const pathNotToLog = ["/audit", "/audit/count", "/webHookStatus", "/webHookStatus/count", "/logs", "/logs/count", "/health"];
 function logToMongo(name) {
     return function (req, res, next) {
         let mongoDB = mongoose.connection.db.collection('logs');
