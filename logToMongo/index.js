@@ -23,7 +23,7 @@ function logToMongo(name) {
                 resStatusCode: res.statusCode,
                 source: req.connection.remoteAddress,
                 completionTime: diff,
-                _deleted: false
+                _metadata: { 'isDeleted': false }
             });
         });
         next();

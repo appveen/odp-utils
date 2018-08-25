@@ -79,13 +79,14 @@ e.getAuditPostSaveHook = (collectionName)=>{
             let newData = doc.toJSON();
             delete doc._auditData.data;
             let auditData = doc._auditData;
-            auditData._deleted = false;
+            auditData._metadata = {};
+            auditData._metadata.isDeleted = false;
             auditData.data = {};
             auditData.data._id = doc._id;
             auditData.data.new = {};
             auditData.data.old = {};
-            auditData._createdAt = new Date();
-            auditData._lastUpdated = new Date();
+            auditData._metadata.createdAt = new Date();
+            auditData._metadata.lastUpdated = new Date();
             getDiff(oldData, newData, auditData.data.old, auditData.data.new);
             if(!_.isEqual(auditData.data.old, auditData.data.new))
                 mongoose.connection.db.collection(collectionName).insert(auditData); 
@@ -101,12 +102,13 @@ e.getAuditPreRemoveHook = ()=>{
             data.txnId = req.headers ? req.get('TxnId') : null;
             data.timestamp = new Date();
             data.data = {};
-            data._createdAt = new Date();
-            data._lastUpdated = new Date();
+            data._metadata = {};
+            data._metadata.createdAt = new Date();
+            data._metadata.lastUpdated = new Date();
             data.data.new = null;
             data.data.old = this.toJSON();
             data.data._id = this._id;
-            data._deleted = false;
+            data._metadata.isDeleted = false;
             this._auditData = data;
         }
         next();
