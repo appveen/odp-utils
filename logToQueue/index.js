@@ -12,8 +12,8 @@ function logToQueue(name, client, queueName, collectionName) {
                 return;
             }
             let body = {
-                name: name,
                 data: {
+                    name: name,
                     url: req.originalUrl,
                     method: req.method,
                     reqHeaders: headers,
@@ -31,7 +31,6 @@ function logToQueue(name, client, queueName, collectionName) {
             }
             let bodyStr = JSON.stringify(body);
             try {
-                console.log(queueName, bodyStr);
                 client.publish(queueName, bodyStr);
             } finally {
                 next();
