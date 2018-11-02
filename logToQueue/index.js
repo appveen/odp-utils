@@ -41,12 +41,16 @@ function logToQueue(name, client, queueName, collectionName) {
             if (collectionName) {
                 body.collectionName = collectionName;
             }
+            if(req.originalUrl == '/rbac/login'){
+                next();
+            }
+            else{
             let bodyStr = JSON.stringify(body);
             try {
                 client.publish(queueName, bodyStr);
             } finally {
                 next();
-            }
+            }}
         });
         next();
     };
