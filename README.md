@@ -1,5 +1,5 @@
-# unagiutils
-Common utils for Project X
+# odp-utils
+Common utils for ODP
 
 ## Audit Trail
 This lib contain hooks to create audit logs in a specific DB. This DB will store all the logs of data change.

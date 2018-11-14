@@ -1,5 +1,5 @@
 {
-  "name": "unagiutils",
+  "name": "@appveen/odp-utils",
   "version": "1.0.0",
   "description": "General utility function",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/capiotsoftware/unagiutils.git"
+    "url": "git+https://github.com/appveen/odp-utils.git"
   },
-  "author": "Shobhit Agarwal",
-  "license": "UNLICENSED",
+  "author": "Shobhit Agarwal <shobhit@appveen.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/capiotsoftware/unagiutils/issues"
+    "url": "https://github.com/appveen/odp-utils/issues"
   },
-  "homepage": "https://github.com/capiotsoftware/unagiutils#readme",
+  "homepage": "https://github.com/appveen/odp-utils#readme",
   "dependencies": {
     "lodash": "^4.17.4",
     "request": "^2.85.0",
