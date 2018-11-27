@@ -28,7 +28,7 @@ function logToQueue(name, client, queueName, collectionName) {
                     name: name,
                     url: req.originalUrl,
                     method: req.method,
-                    reqHeaders: headers,
+                    txnid: headers.txnid,
                     reqBody: req.body,
                     timestamp: start,
                     resHeaders: resHeader,
@@ -38,8 +38,17 @@ function logToQueue(name, client, queueName, collectionName) {
                     _metadata: { 'deleted': false, 'createdAt': new Date(), 'lastUpdated': new Date() }
                 }
             };
+            let summary = message(req);
+            if(summary){
+                body.summary = summary;
+            }
             if (collectionName) {
-                body.collectionName = collectionName;
+		        if(req.originalUrl.includes("/rbac/group")){
+                    body.collectionName = 'group.logs';
+                }
+                else{
+                	body.collectionName = collectionName;
+		        }
             }
             if(req.originalUrl == '/rbac/login'){
                 next();
@@ -54,6 +63,20 @@ function logToQueue(name, client, queueName, collectionName) {
         });
         next();
     };
+}
+
+function message(req){
+    let message = null;
+    if(req.originalUrl == '/sm/service' && req.method == "POST"){
+        message = req.reqHeaders.user+ 'created'+ req.reqBody.name;
+    }
+    else if(req.originalUrl.includes('/sm/service') && req.method == "PUT"){
+        message = req.reqHeaders.user+ 'updated'+ req.reqBody.name;
+    }
+    else if(req.originalUrl.includes('/sm/service') && req.method == "DELETE"){
+        message = req.reqHeaders.user+ 'deleted'+ req.reqBody.name;
+    }
+   return message;
 }
 
 module.exports = logToQueue;

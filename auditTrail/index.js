@@ -72,13 +72,14 @@ e.getAuditPreSaveHook = (collectionName)=> {
     };
 };
 
-e.getAuditPostSaveHook = (collectionName)=>{
+e.getAuditPostSaveHook = (collectionName,client,queueName)=>{
     return function(doc){
         if(doc._auditData){
             let oldData = doc._auditData.data.old;
             let newData = doc.toJSON();
             delete doc._auditData.data;
             let auditData = doc._auditData;
+            auditData.colName = collectionName;
             auditData._metadata = {};
             auditData._metadata.deleted = false;
             auditData.data = {};
@@ -89,7 +90,7 @@ e.getAuditPostSaveHook = (collectionName)=>{
             auditData._metadata.lastUpdated = new Date();
             getDiff(oldData, newData, auditData.data.old, auditData.data.new);
             if(!_.isEqual(auditData.data.old, auditData.data.new))
-                mongoose.connection.db.collection(collectionName).insert(auditData); 
+                client.publish(queueName, JSON.stringify(auditData));
         }
     };
 };
@@ -115,10 +116,11 @@ e.getAuditPreRemoveHook = ()=>{
     };
 };
 
-e.getAuditPostRemoveHook = (collectionName)=>{
+e.getAuditPostRemoveHook = (collectionName,client,queueName)=>{
     return function(doc){
-        if(doc._auditData)
-            mongoose.connection.db.collection(collectionName).insert(doc._auditData); 
+        if(doc._auditData){
+            doc._auditData.colName = collectionName;
+            client.publish(queueName, JSON.stringify(doc._auditData));}
     };
 };
 
