@@ -38,10 +38,6 @@ function logToQueue(name, client, queueName, collectionName) {
                     _metadata: { 'deleted': false, 'createdAt': new Date(), 'lastUpdated': new Date() }
                 }
             };
-            let summary = message(req);
-            if(summary){
-                body.summary = summary;
-            }
             if (collectionName) {
 		        if(req.originalUrl.includes("/rbac/group")){
                     body.collectionName = 'group.logs';
