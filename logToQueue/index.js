@@ -98,19 +98,18 @@ function logToQueue(name, client, queueName, collectionName) {
 function messages(req,res) {
     let message = null;
     let resBody = null;
+    let urlName =  [];
     
     if (req.originalUrl == '/sm/service' && req.method == "POST") {
         resBody = JSON.parse(req.resBody);
         message = req.headers.user + ' created ' + resBody._id;
     }
     else if (req.originalUrl.startsWith('/sm/service/SRVC') && req.method == "PUT") {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length === 4){
         message = req.headers.user + ' updated ' + urlName[3];
     }}
     else if (req.originalUrl.startsWith('/sm/SRVC') && req.method == "PUT") {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length === 4 && urlName[3] == "deploy"){
             message = req.headers.user + ' started ' + urlName[2];}
@@ -118,7 +117,6 @@ function messages(req,res) {
             message = req.headers.user + ' stopped ' +urlName[2];}
     }
     else if (req.originalUrl.startsWith('/sm/service/SRVC') && req.method == "DELETE") {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length === 4){
         message = req.headers.user + ' deleted ' + urlName[3];
@@ -143,14 +141,19 @@ function messages(req,res) {
         message = req.headers.user + ' added a new user ' + resBody._id;
     }
     else if (req.originalUrl.startsWith('/rbac/usr/USR') && res.statusCode == 200 && req.method == "DELETE") {
-        let urlName =  [];
+        
         urlName = req.originalUrl.split('/');
         if(urlName.length==4){
             message = req.headers.user + ' deleted user ' + urlName[3] ;
         }
     }
+    else if (req.originalUrl.startsWith('/rbac/usr/USR') && res.statusCode == 200 && req.method == "PUT") {
+        urlName = req.originalUrl.split('/');
+        if(urlName.length==4){
+            message = req.headers.user + ' update user ' + urlName[3] ;
+        }
+    }
     else if (req.originalUrl.startsWith('/rbac/usr/USR') && res.statusCode == 200 ) {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length==5 && urlName[4] == 'reset'){
             message = req.headers.user + ' reset password for user ' + urlName[3] ;
@@ -175,7 +178,6 @@ function messages(req,res) {
         }
     }
     else if (req.originalUrl.startsWith('/rbac/usr/USR') && res.statusCode == 200 && req.method == "DELETE") {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length==4){
             message = req.headers.user + ' deleted user ' + urlName[3] ;
@@ -185,7 +187,6 @@ function messages(req,res) {
         message = req.headers.user + ' added a new user ' + resBody._id;
     }
     else if (req.originalUrl.startsWith('/rbac/group/GRP') && res.statusCode == 200 && req.method == "DELETE") {
-        let urlName =  [];
         urlName = req.originalUrl.split('/');
         if(urlName.length==4){
             message = req.headers.user + ' deleted team ' + urlName[3] ;
