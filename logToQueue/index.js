@@ -104,7 +104,9 @@ function messages(req,res) {
     let message = null;
     let resBody = null;
     let urlName =  [];
-    
+    try {
+        resBody = JSON.parse(req.resBody);
+    } catch (err) { }
     if (req.originalUrl == '/sm/service' && req.method == "POST") {
         resBody = JSON.parse(req.resBody);
         message = req.headers.user + ' created ' + resBody._id;
