@@ -48,6 +48,7 @@ function logToQueue(name, client, queueName, collectionName) {
                     url: req.originalUrl,
                     method: req.method,
                     txnid: headers.txnid,
+                    userId: headers.user,
                     reqBody: req.body,
                     timestamp: start,
                     resHeaders: resHeader,
@@ -184,12 +185,19 @@ function messages(req,res) {
         }
     }
     else if (req.originalUrl == '/rbac/group' && res.statusCode == 200 && req.method == "POST") {
-        message = req.headers.user + ' added a new user ' + resBody._id;
+        resBody = JSON.parse(req.resBody);
+        message = req.headers.user + ' added a new group '+ resBody._id;
     }
     else if (req.originalUrl.startsWith('/rbac/group/GRP') && res.statusCode == 200 && req.method == "DELETE") {
         urlName = req.originalUrl.split('/');
         if(urlName.length==4){
             message = req.headers.user + ' deleted team ' + urlName[3] ;
+        }
+    }
+    else if (req.originalUrl.startsWith('/rbac/group/GRP') && res.statusCode == 200 && req.method == "PUT") {
+        urlName = req.originalUrl.split('/');
+        if(urlName.length==4){
+            message = req.headers.user + ' updated team ' + urlName[3] ;
         }
     }
 
