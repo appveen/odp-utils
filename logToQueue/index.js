@@ -83,13 +83,17 @@ function logToQueue(name, client, queueName, collectionName) {
                     delete(body.data.reqBody);
                 }
             }
-                let bodyStr = JSON.stringify(body);
+            let bodyStr = JSON.stringify(body);
+            if(req.originalUrl == '/rbac/validate' ){
+                next();
+            }
+            else{
                 try {
                     client.publish(queueName, bodyStr);
                 } finally {
                     next();
                 }
-            
+            }            
         });
 
         next();
