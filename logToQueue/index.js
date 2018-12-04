@@ -104,6 +104,9 @@ function messages(req,res) {
     let message = null;
     let resBody = null;
     let urlName =  [];
+    try {
+        resBody = JSON.parse(req.resBody);
+    } catch (err) { }
 
     if (req.originalUrl == '/rbac/usr' && res.statusCode == 200 && req.method == "POST") {
         resBody = JSON.parse(req.resBody);
