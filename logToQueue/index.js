@@ -318,7 +318,7 @@ function messages(req,res) {
     else if (req.originalUrl.startsWith('/sm/service/SRVC') && req.method == "PUT" && res.statusCode == 200) {
         let url = req.originalUrl.split('?');
         urlName = url[0].split('/');
-        if(url.endsWith('statusChange')){
+        if(url[0].endsWith('statusChange')){
             message =  ' status changed '
         }
         else{
