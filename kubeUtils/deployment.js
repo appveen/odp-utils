@@ -126,7 +126,7 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 	if(_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
-			return data;
+			return _d;
 		}, _e => {
 			return _e;
 		});
