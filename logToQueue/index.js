@@ -70,6 +70,10 @@ function logToQueue(name, client, queueName, collectionName) {
                     body.collectionName = collectionName;
                 }
             }
+            if (req.originalUrl == '/rbac/usr' && req.method == "POST") {
+                delete(body.data.reqBody.password);
+                delete(body.data.reqBody.cpassword);
+             }
             if(req.originalUrl == '/rbac/login' ){
                 delete(body.data.reqBody);
             }
