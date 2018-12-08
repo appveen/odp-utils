@@ -154,22 +154,21 @@ function messages(req,res) {
         else if(urlName.length == 6  && urlName[5] == 'import'){
             message = req.headers.user + ' created ' + urlName[3];
         }
+        else if (req.originalUrl == '/rbac/usr/hb' && res.statusCode == 200 && req.method == "PUT") {
+            message = ' heart beat of UI ' ;
+        }
         else if(urlName.length==4){
             message = req.headers.user + ' updated user ' + urlName[3] ;
         }
     } 
 
-    else if(req.originalUrl.startsWith( '/rbac/usr/app/')&& res.statusCode == 200 && req.method == "POST" && urlName.length == 6  && urlName[5] == 'create'){
+    else if(req.originalUrl.startsWith( '/rbac/usr/app/')&& res.statusCode == 200 && req.method == "POST"){
         resBody = JSON.parse(req.resBody);
-        message = req.headers.user + ' added user ' + resBody._id + 'in app'+ urlName[4] ;
+        message = req.headers.user + ' added user ' + resBody.user._id + ' in app'+ urlName[4] ;
     }
 
     else if(req.originalUrl == '/rbac/usr/' && res.statusCode == 200 && req.method == "PUT" && urlName.length == 6  && urlName[5] == 'import'){
         message = req.headers.user + ' created ' + urlName[3];
-    }
-
-    else if (req.originalUrl == '/rbac/usr/hb' && res.statusCode == 200 && req.method == "PUT") {
-        message = ' heart beat of UI ' ;
     }
 
     else if (req.originalUrl == '/rbac/group' && res.statusCode == 200 && req.method == "POST") {
@@ -215,7 +214,7 @@ function messages(req,res) {
 
     else if (req.originalUrl.startsWith('/rbac/preferences') && res.statusCode == 200 && req.method == "PUT") {
         urlName = req.originalUrl.split('/');
-        message = req.headers.user + ' updated preferences for '+ urlName[2] ;
+        message = req.headers.user + ' updated preference '+ urlName[3] ;
     }
 
     else if (req.originalUrl == '/rbac/closeAllSessions' && res.statusCode == 200 && req.method == "DELETE") {
@@ -243,7 +242,7 @@ function messages(req,res) {
 
     else if (req.originalUrl.startsWith('/rbac/app/') && res.statusCode == 200 && req.method == "PUT") {
         urlName = req.originalUrl.split('/');
-        if(urlName.length==4){
+        if(urlName.length==5){
             message = req.headers.user + ' updated app ' + urlName[3] ;
         }
     }
