@@ -88,7 +88,7 @@ function logToQueue(name, client, queueName, collectionName) {
                 }
             }
             let bodyStr = JSON.stringify(body);
-            if(req.originalUrl == '/rbac/validate' ){
+            if(req.originalUrl == '/rbac/validate' || req.originalUrl == '/rbac/usr/hb' ){
                 next();
             }
             else{
