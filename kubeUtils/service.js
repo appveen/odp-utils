@@ -9,7 +9,8 @@ var e = {};
 e.getAllServices = () => {
 	return req.get(_baseURL + "/services")
 	.then(_d => {
-		var data = _d;
+		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+		var data = _d.body;
 		var res = []
 		data.items.forEach(_i => res.push({
 			name: _i.metadata.name,
@@ -25,7 +26,8 @@ e.getAllServices = () => {
 e.getAllServicesForNamespace = (_namespace) => {
 	return req.get(_baseURL + "/namespaces/" + _namespace + "/services")
 	.then(_d => {
-		var data = _d;
+		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+		var data = _d.body;
 		var res = []
 		data.items.forEach(_i => res.push({
 			name: _i.metadata.name,

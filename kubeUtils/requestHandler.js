@@ -22,7 +22,8 @@ e.get = (_api) => {
 		json: true,
 		headers:{
 			"Authorization": "Bearer " + odp_token
-		}
+		},
+		resolveWithFullResponse: true
 	}
 	return req(options)
 }
@@ -36,7 +37,8 @@ e.post = (_api, _body) => {
 			"Authorization": "Bearer " + odp_token
 		},
 	    json: true,
-	    body: _body
+	    body: _body,
+		resolveWithFullResponse: true
 	}
 	return req(options)
 }
@@ -51,7 +53,8 @@ e.patch = (_api, _body) => {
 	    	"Content-Type": "application/merge-patch+json"
 		},
 	    json: true,
-	    body: _body
+	    body: _body,
+		resolveWithFullResponse: true
 	}
 	return req(options)
 }
@@ -65,7 +68,8 @@ e.delete = (_api, _body) => {
 			"Authorization": "Bearer " + odp_token
 		},
 	    json: true,
-	    body: _body
+	    body: _body,
+		resolveWithFullResponse: true
 	}
 	return req(options)
 }
@@ -79,7 +83,8 @@ e.put = (_api, _body) => {
 			"Authorization": "Bearer " + odp_token
 		},
 	    json: true,
-	    body: _body
+	    body: _body,
+		resolveWithFullResponse: true
 	}
 	return req(options)
 }
