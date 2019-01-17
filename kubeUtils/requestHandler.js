@@ -19,6 +19,7 @@ e.get = (_api) => {
 		method: "GET",
 		url: URL + _api,
 		json: true,
+		strictSSL: false,
 		headers: {
 			'Content-Type': 'application/json',
 			"Authorization": "Bearer " + odp_token
@@ -40,6 +41,7 @@ e.post = (_api, _body) => {
 	var options = {
 		method: "POST",
 		url: URL + _api,
+		strictSSL: false,
 		headers: {
 			'Content-Type': 'application/json',
 			"Authorization": "Bearer " + odp_token
@@ -63,6 +65,7 @@ e.patch = (_api, _body) => {
 	var options = {
 		method: "PATCH",
 		url: URL + _api,
+		strictSSL: false,
 		headers: {
 			"Authorization": "Bearer " + odp_token,
 			"Content-Type": "application/merge-patch+json"
@@ -86,6 +89,7 @@ e.delete = (_api, _body) => {
 	var options = {
 		method: "DELETE",
 		url: URL + _api,
+		strictSSL: false,
 		headers: {
 			'Content-Type': 'application/json',
 			"Authorization": "Bearer " + odp_token
@@ -109,6 +113,7 @@ e.put = (_api, _body) => {
 	var options = {
 		method: "PUT",
 		url: URL + _api,
+		strictSSL: false,
 		headers: {
 			'Content-Type': 'application/json',
 			"Authorization": "Bearer " + odp_token
