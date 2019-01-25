@@ -72,7 +72,7 @@ e.createService = (_namespace, _name, _port) => {
 	};
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/services", data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
@@ -93,7 +93,7 @@ e.updateService = (_namespace, _name, _port) => {
 	};
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/services/" + _name, data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
@@ -104,7 +104,7 @@ e.deleteService = (_namespace, _name) => {
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/services/" + _name, data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
