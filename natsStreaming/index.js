@@ -28,6 +28,7 @@ var init= (clientId,clusterName,config) =>{
     client.on('close', function() {
         logger.info('NATS close');
     });
+    return client;
 }
 
 module.exports = {
