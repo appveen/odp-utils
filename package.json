@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/appveen/odp-utils#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "lodash": "^4.17.4",
-    "request": "^2.88.0",
-    "bluebird": "^3.5.0"
+    "log4js": "^4.0.0",
+    "request": "^2.88.0"
   }
 }
