@@ -2,6 +2,8 @@ var NATS = require('node-nats-streaming');
 var client = null;
 var log4js = require('log4js');
 var logger = log4js.getLogger('odp-utils-nats-streaming');
+logger.level =  'info';
+
 var init = (clusterName, clientId, config) => {
 
     client = NATS.connect(clusterName, clientId, config);
