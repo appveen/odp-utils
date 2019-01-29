@@ -8,7 +8,8 @@ const fs = require("fs");
 const URL = "https://kubernetes.default.svc";
 
 var odp_token = "";
-odp_token = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/token");
+let odp_sa_path = "/var/run/secrets/kubernetes.io/serviceaccount/token";
+if(fs.existsSync(odp_sa_path)) odp_token = fs.readFileSync(odp_sa_path);
 
 e.get = (_api) => {
 	var options = {
