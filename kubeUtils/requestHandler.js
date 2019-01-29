@@ -5,14 +5,10 @@ var e = {};
 const req = require('request-promise');
 const fs = require("fs");
 
-const HOST = process.env.KUBERNETES_SERVICE_HOST;
-const PORT = process.env.KUBERNETES_SERVICE_PORT;
-const URL = "https://" + HOST + ":" + PORT;
-
-const TOKEN = process.env.ODP_TOKEN;
+const URL = "https://kubernetes.default.svc";
 
 var odp_token = "";
-if(TOKEN) odp_token = fs.readFileSync(TOKEN);
+odp_token = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/token");
 
 e.get = (_api) => {
 	var options = {
