@@ -9,7 +9,8 @@ var e = {};
 e.getAllDeployments = () => {
 	return req.get(_baseURL + "/deployments")
 		.then(_d => {
-			var data = _d;
+			if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+			var data = _d.body;
 			var res = []
 			data.items.forEach(_i => res.push({
 				name: _i.metadata.name,
@@ -25,7 +26,8 @@ e.getAllDeployments = () => {
 e.getAllDeploymentsForNamespace = (_namespace) => {
 	return req.get(_baseURL + "/namespaces/" + _namespace + "/deployments")
 		.then(_d => {
-			var data = _d;
+			if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+			var data = _d.body;
 			var res = []
 			data.items.forEach(_i => res.push({
 				name: _i.metadata.name,
@@ -42,8 +44,6 @@ e.getDeployment = (_namespace, _name) => {
 	return req.get(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name)
 		.then(_d => {
 			return _d;
-		}, _e => {
-			return _e;
 		});
 }
 
@@ -85,13 +85,13 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 		}
 	};
 	if (process.env.DOCKER_USER && process.env.DOCKER_PASSWORD && process.env.DOCKER_REGISTRY_SERVER && process.env.DOCKER_EMAIL) {
-		data.spec.template.spec.imagePullSecrets = [{name: 'regsecret'}];
+		data.spec.template.spec.imagePullSecrets = [{ name: 'regsecret' }];
 	}
-	if(_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
-	if(_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
+	if (_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
+	if (_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
-			return data;
+			return _d;
 		}, _e => {
 			return _e;
 		});
@@ -120,10 +120,10 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 		}
 	};
 	if (process.env.DOCKER_USER && process.env.DOCKER_PASSWORD && process.env.DOCKER_REGISTRY_SERVER && process.env.DOCKER_EMAIL) {
-		data.spec.template.spec.imagePullSecrets = [{name: 'regsecret'}];
+		data.spec.template.spec.imagePullSecrets = [{ name: 'regsecret' }];
 	}
-	if(_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
-	if(_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
+	if (_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
+	if (_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
 			return _d;
@@ -137,7 +137,7 @@ e.deleteDeployment = (_namespace, _name) => {
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
-			return data;
+			return _d;
 		}, _e => {
 			return _e;
 		});

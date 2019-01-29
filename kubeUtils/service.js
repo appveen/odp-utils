@@ -9,7 +9,8 @@ var e = {};
 e.getAllServices = () => {
 	return req.get(_baseURL + "/services")
 	.then(_d => {
-		var data = _d;
+		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+		var data = _d.body;
 		var res = []
 		data.items.forEach(_i => res.push({
 			name: _i.metadata.name,
@@ -25,7 +26,8 @@ e.getAllServices = () => {
 e.getAllServicesForNamespace = (_namespace) => {
 	return req.get(_baseURL + "/namespaces/" + _namespace + "/services")
 	.then(_d => {
-		var data = _d;
+		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
+		var data = _d.body;
 		var res = []
 		data.items.forEach(_i => res.push({
 			name: _i.metadata.name,
@@ -70,7 +72,7 @@ e.createService = (_namespace, _name, _port) => {
 	};
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/services", data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
@@ -91,7 +93,7 @@ e.updateService = (_namespace, _name, _port) => {
 	};
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/services/" + _name, data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
@@ -102,7 +104,7 @@ e.deleteService = (_namespace, _name) => {
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/services/" + _name, data)
 	.then(_d => {
-		return data;
+		return _d;
 	}, _e => {
 		return _e;
 	});
