@@ -1,8 +1,15 @@
 var NATS = require('node-nats-streaming');
 var client = null;
 var log4js = require('log4js');
-var logger = log4js.getLogger('odp-utils-nats-streaming');
-logger.level =  'info';
+
+log4js.configure({
+    levels: {
+      AUDIT: { value: Number.MAX_VALUE-1, colour: 'yellow' }
+    },
+    appenders: { out: { type: 'stdout', layout: { type: 'basic' } } },
+    categories: { default: { appenders: ['out'], level: 'INFO' } }
+  });
+var logger = log4js.getLogger('[odp-utils-nats-streaming]');
 
 var init = (clusterName, clientId, config) => {
 
