@@ -31,7 +31,7 @@ e.getNamespace = (_name) => {
 }
 
 e.createNamespace = (_name) => {
-	var data = {"metadata": {"name": _name}};
+	var data = {"metadata": {"name": _name},"spec": {"selector": {"release" : _release}}};
 	return req.post(_baseURL, data)
 	.then(_d => {
 		return _d;

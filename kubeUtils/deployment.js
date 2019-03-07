@@ -47,7 +47,7 @@ e.getDeployment = (_namespace, _name) => {
 		});
 }
 
-e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
+e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_release) => {
 	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port);
 	var data = {
 		"metadata": {
@@ -58,7 +58,8 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 			"replicas": 1,
 			"selector": {
 				"matchLabels": {
-					"app": _name
+					"app": _name,
+					"release": _release
 				}
 			},
 			"template": {
