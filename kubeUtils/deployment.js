@@ -48,7 +48,7 @@ e.getDeployment = (_namespace, _name) => {
 }
 
 e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_release) => {
-	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port);
+	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port,_release);
 	var data = {
 		"metadata": {
 			"name": _name,
