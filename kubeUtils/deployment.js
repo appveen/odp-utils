@@ -65,7 +65,8 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 			"template": {
 				"metadata": {
 					"labels": {
-						"app": _name
+						"app": _name,
+						"release": _release
 					}
 				},
 				"spec": {
