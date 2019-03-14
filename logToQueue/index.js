@@ -1,4 +1,4 @@
-const pathNotToLog = ["rbac/health","sm/health","dm/health","wf/health","mon/health","sec/health","ne/health"];
+const pathNotToLog = ["/rbac/health","/sm/health","/dm/health","/wf/health","/mon/health","/sec/health","/ne/health"];
 const reqHeaderNotToLog = ['x-forwarded-for', 'dnt', 'authorization', 'access-control-allow-methods', 'content-type', 'access-control-allow-origin', 'accept', 'referer', 'accept-encoding', 'accept-language', 'cookie', 'connection'];
 const resHeaderNotToLog = ['x-powered-by', 'access-control-allow-origin', 'content-type', 'content-length', 'etag'];
 function deleteProps(obj, properties) {
