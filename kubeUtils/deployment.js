@@ -97,12 +97,12 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 		for(var mount in _volumeMounts){
 			data.spec.template.spec.containers[0]["volumeMounts"].push({
 				"name" : mount,
-				"mountPath" : mount["containerPath"]
+				"mountPath" : _volumeMounts[mount]["containerPath"]
 			});
 			data.spec.template.spec["volumes"].push({
 				"name": mount,
 				"hostPath": {
-					"path": mount["hostPath"]
+					"path": _volumeMounts[mount]["hostPath"]
 				}
 			});
 		}
@@ -149,12 +149,12 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volu
 		for(var mount in _volumeMounts){
 			data.spec.template.spec.containers[0]["volumeMounts"].push({
 				"name" : mount,
-				"mountPath" : mount["containerPath"]
+				"mountPath" : _volumeMounts[mount]["containerPath"]
 			});
 			data.spec.template.spec["volumes"].push({
 				"name": mount,
 				"hostPath": {
-					"path": mount["hostPath"]
+					"path": _volumeMounts[mount]["hostPath"]
 				}
 			});
 		}
