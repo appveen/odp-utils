@@ -107,6 +107,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 			});
 		}
 	}
+	console.log("Request :: ",data)
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
 			return _d;
@@ -158,6 +159,7 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volu
 			});
 		}
 	}
+	console.log("Request :: ",data)
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
 			return _d;
