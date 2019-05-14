@@ -47,7 +47,7 @@ e.getDeployment = (_namespace, _name) => {
 		});
 }
 
-e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_release) => {
+e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_release,_volumeMounts) => {
 	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port,_release);
 	var data = {
 		"metadata": {
@@ -91,6 +91,22 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 	}
 	if (_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
 	if (_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
+	if (_volumeMounts){
+		data.spec.template.spec.containers[0]["volumeMounts"] = [];
+		data.spec.template.spec["volumes"] = [];
+		for(var mount in _volumeMounts){
+			data.spec.template.spec.containers[0]["volumeMounts"].push({
+				"name" : mount,
+				"mountPath" : mount["containerPath"]
+			});
+			data.spec.template.spec["volumes"].push({
+				"name": mount,
+				"hostPath": {
+					"path": mount["hostPath"]
+				}
+			});
+		}
+	}
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
 			return _d;
@@ -99,7 +115,7 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 		});
 }
 
-e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
+e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volumeMounts) => {
 	console.log("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
 		"spec": {
@@ -126,6 +142,22 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options) => {
 	}
 	if (_options.livenessProbe) data.spec.template.spec.containers[0]["livenessProbe"] = _options.livenessProbe;
 	if (_options.readinessProbe) data.spec.template.spec.containers[0]["readinessProbe"] = _options.readinessProbe;
+	if (_volumeMounts){
+		data.spec.template.spec.containers[0]["volumeMounts"] = [];
+		data.spec.template.spec["volumes"] = [];
+		for(var mount in _volumeMounts){
+			data.spec.template.spec.containers[0]["volumeMounts"].push({
+				"name" : mount,
+				"mountPath" : mount["containerPath"]
+			});
+			data.spec.template.spec["volumes"].push({
+				"name": mount,
+				"hostPath": {
+					"path": mount["hostPath"]
+				}
+			});
+		}
+	}
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
 			return _d;
