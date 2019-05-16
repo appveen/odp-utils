@@ -37,7 +37,7 @@ function logToQueue(name, client, queueName, collectionName) {
                 next();
                 return;
             }
-            else if(url.length==4 && url[3] == 'health'){
+            else if(req.path.endsWith('/health/live') || req.path.endsWith('/health/ready') ){
                 next();
                 return;
             }
