@@ -35,7 +35,7 @@ e.getAllServicesForNamespace = (_namespace) => {
 			type: _i.spec.type,
 			ports: _i.spec.port
 		}));
-		return data;
+		return res;
 	}, _e => {
 		return _e;
 	});
