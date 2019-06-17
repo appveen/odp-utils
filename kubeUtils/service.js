@@ -28,7 +28,7 @@ e.getAllServicesForNamespace = (_namespace) => {
 	.then(_d => {
 		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
 		var data = _d.body;
-		var res = data
+		var res = [];
 		data.items.forEach(_i => res.push({
 			name: _i.metadata.name,
 			namespace: _i.metadata.namespace,
