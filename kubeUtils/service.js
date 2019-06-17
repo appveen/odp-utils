@@ -28,12 +28,13 @@ e.getAllServicesForNamespace = (_namespace) => {
 	.then(_d => {
 		if (!(_d.statusCode >= 200 && _d.statusCode < 400)) throw new Error(_d.body && typeof _d.body === 'object' ? JSON.stringify(_d.body) : 'API returned ' + _d.statusCode)
 		var data = _d.body;
-		// var res = data
-		// data.items.forEach(_i => res.push({
-		// 	name: _i.metadata.name,
-		// 	namespace: _i.metadata.namespace,
-		// 	type: _i.spec.type
-		// }));
+		var res = data
+		data.items.forEach(_i => res.push({
+			name: _i.metadata.name,
+			namespace: _i.metadata.namespace,
+			type: _i.spec.type,
+			ports: _i.spec.port
+		}));
 		return data;
 	}, _e => {
 		return _e;
