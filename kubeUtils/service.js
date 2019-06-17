@@ -49,7 +49,7 @@ e.getService = (_namespace, _name) => {
 	});
 }
 
-e.createService = (_namespace, _name, _port) => {
+e.createService = (_namespace, _name, _port,_release) => {
 	console.log("Creating a new service :: ", _namespace, _name, _port);
 	var data = {
 		"metadata": {
@@ -59,7 +59,8 @@ e.createService = (_namespace, _name, _port) => {
 		"spec": {
 			"type": "ClusterIP",
 			"selector": {
-			 	"app": _name
+				 "app": _name,
+				 "release": _release
 			},
 			"ports": [
 				{

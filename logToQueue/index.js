@@ -1,4 +1,4 @@
-const pathNotToLog = ["/audit", "/audit/count", "/webHookStatus", "/webHookStatus/count", "/logs", "/logs/count", "/health"];
+const pathNotToLog = ["/rbac/health","/sm/health","/dm/health","/wf/health","/mon/health","/sec/health","/ne/health"];
 const reqHeaderNotToLog = ['x-forwarded-for', 'dnt', 'authorization', 'access-control-allow-methods', 'content-type', 'access-control-allow-origin', 'accept', 'referer', 'accept-encoding', 'accept-language', 'cookie', 'connection'];
 const resHeaderNotToLog = ['x-powered-by', 'access-control-allow-origin', 'content-type', 'content-length', 'etag'];
 function deleteProps(obj, properties) {
@@ -32,7 +32,12 @@ function logToQueue(name, client, queueName, collectionName) {
             let diff = end - start;
             let headers = JSON.parse(JSON.stringify(req.headers));[]
             deleteProps(headers, reqHeaderNotToLog);
-            if (pathNotToLog.some(_k => req.path.endsWith(_k))) {
+            let url = req.path.split('/');
+            if (pathNotToLog.some(_k => req.path == (_k))) {
+                next();
+                return;
+            }
+            else if(req.path.endsWith('/health/live') || req.path.endsWith('/health/ready') ){
                 next();
                 return;
             }
