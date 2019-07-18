@@ -48,7 +48,6 @@ e.getDeployment = (_namespace, _name) => {
 }
 
 e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_release,_volumeMounts) => {
-	console.log("Creating a new deployment :: ", _namespace, _name, _image, _port,_release);
 	var data = {
 		"metadata": {
 			"name": _name,
@@ -107,7 +106,6 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 			});
 		}
 	}
-	console.log("Request :: ",JSON.stringify(data))
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
 			return _d;
@@ -117,7 +115,6 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 }
 
 e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volumeMounts) => {
-	console.log("Updating the deployment :: ", _namespace, _name, _image);
 	var data = {
 		"spec": {
 			"template": {

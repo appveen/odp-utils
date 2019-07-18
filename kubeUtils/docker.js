@@ -22,11 +22,9 @@ function run(_cmd, _args){
 		    
 		    child.on('exit', function(e, code) {
 		        if (e == 0) {
-		        	console.log("Command status :: SUCCESS");
 		        	resolve(stdout);
 		        }
 		        else {
-		        	console.log("Command status :: FAIL");
 		        	reject(stderr);
 		        }
 		    });
@@ -35,7 +33,6 @@ function run(_cmd, _args){
 }
 
 function loginToRegistry () {
-	console.log("Trying to login to the docker registry...");
 	return run("aws", ["ecr", "get-login", "--no-include-email"])
 	.then(_d => {
 		let command = _d.trim().split(" ");
