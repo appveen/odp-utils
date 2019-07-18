@@ -156,7 +156,6 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volu
 			});
 		}
 	}
-	console.log("Request :: ",JSON.stringify(data))
 	return req.patch(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
 			return _d;
@@ -166,7 +165,6 @@ e.updateDeployment = (_namespace, _name, _image, _port, _envVars, _options,_volu
 }
 
 e.deleteDeployment = (_namespace, _name) => {
-	console.log("Deleting the deployment :: ", _namespace, _name);
 	var data = {};
 	return req.delete(_baseURL + "/namespaces/" + _namespace + "/deployments/" + _name, data)
 		.then(_d => {
