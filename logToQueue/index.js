@@ -66,7 +66,7 @@ function logToQueue(name, client, queueName, collectionName) {
                     _metadata: { 'deleted': false, 'createdAt': new Date(), 'lastUpdated': new Date() }
                 }
             };
-            logger.debug('response body is',JSON.stringify(req.resBody));
+            if(req.method != "GET") logger.debug('response body is',JSON.stringify(req.resBody));
             let summary = messages(req,res);
             if(summary){
                 body.data.summary = summary;
