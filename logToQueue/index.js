@@ -1,7 +1,6 @@
 const pathNotToLog = ["/rbac/health","/sm/health","/dm/health","/wf/health","/mon/health","/sec/health","/ne/health"];
 const reqHeaderNotToLog = ['x-forwarded-for', 'dnt', 'authorization', 'access-control-allow-methods', 'content-type', 'access-control-allow-origin', 'accept', 'referer', 'accept-encoding', 'accept-language', 'cookie', 'connection'];
 const resHeaderNotToLog = ['x-powered-by', 'access-control-allow-origin', 'content-type', 'content-length', 'etag'];
-let logger = global.logger;
 
 function deleteProps(obj, properties) {
     for (let property of properties)
@@ -10,6 +9,8 @@ function deleteProps(obj, properties) {
 
 function logToQueue(name, client, queueName, collectionName) {
     return function (req, res, next) {
+        let logger = global.logger;
+
         if(req.method != "GET") logger.debug('request body is',JSON.stringify(req.body));
         let start = new Date();
         var oldWrite = res.write,
