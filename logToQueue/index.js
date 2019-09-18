@@ -10,7 +10,7 @@ function deleteProps(obj, properties) {
 
 function logToQueue(name, client, queueName, collectionName) {
     return function (req, res, next) {
-        logger.debug('request body is',JSON.stringify(req.body));
+        if(req.method != "GET") logger.debug('request body is',JSON.stringify(req.body));
         let start = new Date();
         var oldWrite = res.write,
             oldEnd = res.end;
@@ -66,7 +66,7 @@ function logToQueue(name, client, queueName, collectionName) {
                     _metadata: { 'deleted': false, 'createdAt': new Date(), 'lastUpdated': new Date() }
                 }
             };
-            if(req.method != "GET") logger.debug('response body is',JSON.stringify(req.resBody));
+            logger.debug('response body is',JSON.stringify(req.resBody));
             let summary = messages(req,res);
             if(summary){
                 body.data.summary = summary;
