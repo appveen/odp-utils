@@ -116,7 +116,7 @@ function logToQueue(name, client, queueName, collectionName, masking) {
                     method: req.method,
                     txnid: headers.txnid,
                     userId: headers.user,
-                    reqBody: req.body,
+                    reqBody: logReqBody,
                     timestamp: start,
                     resHeaders: resHeader,
                     resStatusCode: res.statusCode,
