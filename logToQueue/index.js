@@ -51,7 +51,7 @@ The masking array structure:
         path - type array, flattend path to be masked.
     }
 */
-function logToQueue(name, client, queueName, collectionName, masking) {
+function logToQueue(name, client, queueName, collectionName, masking, serviceId) {
     return function (req, res, next) {
         let logger = global.logger;
         let logReqBody = JSON.parse(JSON.stringify(req.body));
@@ -116,6 +116,7 @@ function logToQueue(name, client, queueName, collectionName, masking) {
                     method: req.method,
                     txnid: headers.txnid,
                     userId: headers.user,
+                    serviceId: serviceId,
                     reqBody: logReqBody,
                     timestamp: start,
                     resHeaders: resHeader,
