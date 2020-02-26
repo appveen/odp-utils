@@ -126,7 +126,7 @@ function logToQueue(name, client, queueName, collectionName, masking, serviceId)
                     _metadata: { 'deleted': false, 'createdAt': new Date(), 'lastUpdated': new Date() }
                 }
             };
-            logger.debug('Response Payload :: ', JSON.stringify(req.resBody));
+            // logger.debug('Response Payload :: ', JSON.stringify(req.resBody));
             let summary = messages(req, res);
             if (summary) {
                 body.data.summary = summary;
