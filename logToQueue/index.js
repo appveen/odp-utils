@@ -422,7 +422,7 @@ function messages(req, res) {
         message = req.headers.user + ' started all services of a app ' + urlName[2];
     }
 
-    if (&& req.originalUrl == '/sm/globalSchema' && res.statusCode == 200 && req.method == "POST") {
+    if (req.originalUrl == '/sm/globalSchema' && res.statusCode == 200 && req.method == "POST") {
         resBody = req.resBody;
         message = req.headers.user + ' created globalSchema ' + resBody._id;
     }
