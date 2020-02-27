@@ -177,12 +177,12 @@ function messages(req, res) {
     let message = null;
     let resBody = null;
     let urlName = [];
-    try {
-        resBody = JSON.parse(req.resBody);
-    } catch (err) { }
 
+    logger.debug(`ODP-UTILS :: req.originalUrl :: ${req.originalUrl}`)
+    logger.debug(`ODP-UTILS :: req.statusCode :: ${req.statusCode}`)
+    logger.debug(`ODP-UTILS :: req.method :: ${req.method}`)
     if (req.originalUrl == '/rbac/usr' && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+        resBody = req.resBody;
         message = req.headers.user + ' added a new user ' + resBody._id;
     }
 
@@ -195,6 +195,7 @@ function messages(req, res) {
 
     else if (req.originalUrl.startsWith('/rbac/usr/') && res.statusCode == 200 && req.method == "PUT") {
         urlName = req.originalUrl.split('/');
+        logger.debug(`ODP-UTILS :: req.method :: ${req.method}`)
 
         if (urlName.length == 5 && urlName[4] == 'reset') {
             message = req.headers.user + ' reset password for user ' + urlName[3];
@@ -232,7 +233,7 @@ function messages(req, res) {
     }
 
     else if (req.originalUrl.startsWith('/rbac/usr/app/') && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+        resBody = req.resBody;
         message = req.headers.user + ' added user ' + resBody.user._id + ' in app' + urlName[4];
     }
 
@@ -241,7 +242,7 @@ function messages(req, res) {
     }
 
     else if (req.originalUrl == '/rbac/group' && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+        resBody = req.resBody;
         message = req.headers.user + ' added a new group ' + resBody._id;
     }
 
@@ -260,14 +261,8 @@ function messages(req, res) {
     }
 
     else if (req.originalUrl == '/rbac/login') {
-        if (res.statusCode == 200) {
-            resBody = JSON.parse(req.resBody);
-            message = resBody._id + ' logged in';
-        }
-        if (res.statusCode != 200) {
-            resBody = JSON.parse(req.resBody);
-            message = 'logged in failed';
-        }
+        if (res.statusCode == 200) message = req.resBody._id + ' logged in';
+        if (res.statusCode != 200) message = 'logged in failed';
     }
     else if (req.originalUrl == '/rbac/logout' && res.statusCode == 200) {
         message = req.headers.user + ' logged out';
@@ -298,7 +293,7 @@ function messages(req, res) {
     }
 
     else if (req.originalUrl == '/rbac/app' && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+        resBody = req.resBody;
         message = req.headers.user + ' added a new app ' + resBody._id;
     }
 
@@ -317,7 +312,7 @@ function messages(req, res) {
     }
 
     else if (req.originalUrl == '/rbac/role' && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+        resBody = req.resBody;
         message = req.headers.user + ' added a new role ' + resBody._id;
     }
 
@@ -382,10 +377,7 @@ function messages(req, res) {
         }
     }
 
-    else if (req.originalUrl == '/sm/service' && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
-        message = req.headers.user + ' created ' + resBody._id;
-    }
+    else if (req.originalUrl == '/sm/service' && req.method == "POST") message = req.headers.user + ' created ' + req.resBody._id;
 
     else if (req.originalUrl.startsWith('/sm/service/SRVC') && req.method == "PUT" && res.statusCode == 200) {
         let url = req.originalUrl.split('?');
@@ -430,8 +422,8 @@ function messages(req, res) {
         message = req.headers.user + ' started all services of a app ' + urlName[2];
     }
 
-    if (req.resBody && req.originalUrl == '/sm/globalSchema' && res.statusCode == 200 && req.method == "POST") {
-        resBody = JSON.parse(req.resBody);
+    if (&& req.originalUrl == '/sm/globalSchema' && res.statusCode == 200 && req.method == "POST") {
+        resBody = req.resBody;
         message = req.headers.user + ' created globalSchema ' + resBody._id;
     }
 
