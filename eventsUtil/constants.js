@@ -73,7 +73,9 @@ let eventPriorityMap = {
     "EVENT_APP_USER_REMOVED": "High",
     "EVENT_APP_UPDATE": "High",
     "EVENT_APP_DELETE": "High",
-    "EVENT_AUTHENTICATION_SWITCH": "High",
+    "EVENT_AUTHENTICATION_MODE_LDAP": "High",
+    "EVENT_AUTHENTICATION_MODE_AZURE": "High",
+    "EVENT_AUTHENTICATION_MODE_LOCAL": "High",
     "EVENT_IEG_KEY_RESET": "High"
 }
 
