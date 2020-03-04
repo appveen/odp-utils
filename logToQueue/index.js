@@ -179,8 +179,8 @@ function messages(req, res) {
     let urlName = [];
 
     logger.debug(`ODP-UTILS :: req.originalUrl :: ${req.originalUrl}`)
-    logger.debug(`ODP-UTILS :: req.statusCode :: ${req.statusCode}`)
     logger.debug(`ODP-UTILS :: req.method :: ${req.method}`)
+    logger.debug(`ODP-UTILS :: res.statusCode :: ${res.statusCode}`)
     if (req.originalUrl == '/rbac/usr' && res.statusCode == 200 && req.method == "POST") {
         resBody = req.resBody;
         message = req.headers.user + ' added a new user ' + resBody._id;
