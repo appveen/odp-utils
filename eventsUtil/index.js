@@ -23,11 +23,16 @@ function publishEvent(eventId, source, req, doc, partner) {
             "documentId": doc._id,
             "documentName": doc.name,
             "app": doc.app,
-            "triggerType": "user",
-            "triggerId": req.get('user'),
             "timestamp": new Date().toISOString(),
             "priority": eventPriorityMap[eventId],
-            "txnId": req.get('txnId')
+        }
+        if (req) {
+            payload.triggerType = 'user';
+            payload.triggerId = req.get('user');
+            payload.txnId = req.get('txnId');
+        } else {
+            payload.triggerType = 'cron';
+            payload.triggerId = 'AGENT_HB_MISS';
         }
         if (partner) {
             payload.partnerId = partner._id;
