@@ -24,6 +24,7 @@ let eventPriorityMap = {
     "EVENT_AGENT_PARTNER_UPDATE_PASSWORD": "High",
     "EVENT_AGENT_PARTNER_UPDATE_SETTINGS": "Medium",
     "EVENT_AGENT_PARTNER_UPDATE_SCHEDULE": "High",
+    "EVENT_AGENT_IEG_STOPPED": "High",
     "EVENT_DS_CREATE": "Medium",
     "EVENT_DS_START": "Medium",
     "EVENT_DS_STOP": "High",
