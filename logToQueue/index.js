@@ -132,6 +132,7 @@ function logToQueue(name, client, queueName, collectionName, masking, serviceId)
                 body.data.summary = summary;
             }
             if (collectionName) {
+                body.data.app = collectionName.split('.')[0];
                 if (req.originalUrl.includes("/rbac/group")) {
                     body.collectionName = 'group.logs';
                 }
