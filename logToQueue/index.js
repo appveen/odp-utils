@@ -54,7 +54,16 @@ The masking array structure:
 function logToQueue(name, client, queueName, collectionName, masking, serviceId) {
     return function (req, res, next) {
         let logger = global.logger;
-        let logReqBody = JSON.parse(JSON.stringify(req.body));
+        let logReqBody;
+        try {
+            logReqBody = JSON.parse(JSON.stringify(req.body));
+        } catch (e) {
+            try {
+                logReqBody = JSON.parse(req.body.toString());
+            } catch (e) {
+                logReqBody = {};
+            }
+        }
         if (masking && Array.isArray(masking)) {
             let maskingObj = masking.find(_m => compareUrl(_m.url, req.path) && (_m.method ? _m.method.toLowerCase() == req.method.toLowerCase() : true));
             if (maskingObj && maskingObj.path) {
