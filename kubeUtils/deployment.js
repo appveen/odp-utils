@@ -106,6 +106,9 @@ e.createDeployment = (_namespace, _name, _image, _port, _envVars, _options,_rele
 			});
 		}
 	}
+	if(_options.terminationGracePeriodSeconds){
+		data.spec.template.spec["terminationGracePeriodSeconds"] = _options.terminationGracePeriodSeconds;
+	}
 	return req.post(_baseURL + "/namespaces/" + _namespace + "/deployments", data)
 		.then(_d => {
 			return _d;
