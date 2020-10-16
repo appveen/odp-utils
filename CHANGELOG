@@ -1,3 +1,7 @@
 ## [1.5.9] - 03-09-2020
 ### Added
 - terminationGracePeriodSeconds in kubeUtils deployment
+
+## [1.5.10] - 16-10-2020
+### Added
+- startupProbe in kubeUtils deployment
