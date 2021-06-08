@@ -176,7 +176,7 @@ function logToQueue(name, client, queueName, collectionName, masking, serviceId)
                 next();
             } else {
                 try {
-                    if (supportedHTTPMethods.indexOf(req.method)) {
+                    if (supportedHTTPMethods.indexOf(req.method) > -1) {
                         client.publish(queueName, bodyStr);
                     }
                 } finally {
